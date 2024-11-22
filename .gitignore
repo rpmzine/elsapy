@@ -11,3 +11,4 @@ dump.json
 /dist
 /build
 /elsapy.egg-info
+.DS_Store
