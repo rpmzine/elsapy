@@ -7,13 +7,12 @@ from elsapy.elssearch import ElsSearch
 import json
     
 ## Load configuration
-con_file = open("config.json")
-config = json.load(con_file)
-con_file.close()
+config_path = "/Users/ramaral/Library/CloudStorage/OneDrive-FundacaoGetulioVargas-FGV/Documents/DevFolder/elsapy/config.json"
+with open(config_path) as con_file:    # Now using the correct path variable
+    config = json.load(con_file)
 
 ## Initialize client
 client = ElsClient(config['apikey'])
-client.inst_token = config['insttoken']
 
 ## Author example
 # Initialize author with uri
@@ -67,18 +66,18 @@ else:
 print ("Load documents (Y/N)?")
 s = input('--> ')
 
-if (s == "y" or s == "Y"):
+if s in {"y", "Y"}:
 
     ## Read all documents for example author, then write to disk
     if my_auth.read_docs(client):
-        print ("my_auth.doc_list has " + str(len(my_auth.doc_list)) + " items.")
+        print (f"my_auth.doc_list has {len(my_auth.doc_list)} items.")
         my_auth.write_docs()
     else:
         print ("Read docs for author failed.")
 
     ## Read all documents for example affiliation, then write to disk
     if my_aff.read_docs(client):
-        print ("my_aff.doc_list has " + str(len(my_aff.doc_list)) + " items.")
+        print (f"my_aff.doc_list has {len(my_aff.doc_list)} items.")
         my_aff.write_docs()
     else:
         print ("Read docs for affiliation failed.")
